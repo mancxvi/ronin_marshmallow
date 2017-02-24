@@ -1,3 +1,9 @@
+/* William Oberndorfer
+ * Ronin Marshmallow
+ *
+ * A Samurai Kirby clone for Arduino.
+ */
+
 #define PLAYER_1_BUTTON 2
 #define PLAYER_2_BUTTON 3
 
