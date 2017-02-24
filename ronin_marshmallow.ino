@@ -39,8 +39,8 @@ char buf[10];
 
 void setup()
 {
-    pinMode(PLAYER_1_BUTTON, INPUT);
-    pinMode(PLAYER_2_BUTTON, INPUT);
+    pinMode(PLAYER_1_BUTTON, INPUT_PULLUP);
+    pinMode(PLAYER_2_BUTTON, INPUT_PULLUP);
     pinMode(PLAYER_1_LED, OUTPUT);
     pinMode(PLAYER_2_LED, OUTPUT);
     pinMode(GO_LED, OUTPUT);
@@ -50,9 +50,9 @@ void setup()
     digitalWrite(GO_LED, LOW);
     digitalWrite(WAIT_LED, LOW);
     attachInterrupt(digitalPinToInterrupt(PLAYER_1_BUTTON),
-                    player_1_interrupt, RISING);
+                    player_1_interrupt, FALLING);
     attachInterrupt(digitalPinToInterrupt(PLAYER_2_BUTTON),
-                    player_2_interrupt, RISING);
+                    player_2_interrupt, FALLING);
     previous = millis();
     duration = random(3000,5000);
     u8g2.begin();
@@ -124,7 +124,7 @@ void loop()
 
 void player_1_interrupt()
 {
-    if (digitalRead(PLAYER_1_BUTTON)) {
+    if (!digitalRead(PLAYER_1_BUTTON)) {
         if (game_state == GO) {
             response = millis() - previous;
             winner = PLAYER_1;
@@ -139,7 +139,7 @@ void player_1_interrupt()
 
 void player_2_interrupt()
 {
-    if (digitalRead(PLAYER_2_BUTTON)) {
+    if (!digitalRead(PLAYER_2_BUTTON)) {
         if (game_state == GO) {
             response = millis() - previous;
             winner = PLAYER_2;
